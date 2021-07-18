@@ -26,7 +26,7 @@
     self.navigationItem.titleView = [UIView new];
     self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
     [[self titleLabel] setFont:[UIFont boldSystemFontOfSize:17]];
-    [[self titleLabel] setText:@"2.5.10"];
+    [[self titleLabel] setText:@"2.5.11"];
     [[self titleLabel] setTextColor:[UIColor whiteColor]];
     [[self titleLabel] setTextAlignment:NSTextAlignmentCenter];
     [[[self navigationItem] titleView] addSubview:[self titleLabel]];
