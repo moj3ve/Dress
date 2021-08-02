@@ -39,8 +39,8 @@
 	if (colorTimeAndDateSwitch) {
 		UIColor* customTimeColor = [SparkColourPickerUtils colourWithString:[preferencesDictionary objectForKey:@"timeColor"] withFallback: @"#ffffff"];
 		UIColor* customDateColor = [SparkColourPickerUtils colourWithString:[preferencesDictionary objectForKey:@"dateColor"] withFallback: @"#ffffff"];
-		UIView* subtitleView = MSHookIvar<UIView *>(self, "_dateSubtitleView");
-		SBUILegibilityLabel* label = MSHookIvar<SBUILegibilityLabel *>(subtitleView, "_label");
+		UIView* subtitleView = [self valueForKey:@"_dateSubtitleView"];
+		SBUILegibilityLabel* label = [subtitleView valueForKey:@"_label"];
 		[self setTextColor:customTimeColor];
 		[label setTextColor:customDateColor];
 	}
@@ -133,7 +133,7 @@
 
 	[self setHidden:hideOnlyDateSwitch];
 
-	SBFLockScreenAlternateDateLabel* label = MSHookIvar<SBFLockScreenAlternateDateLabel *>(self, "_alternateDateLabel");
+	SBFLockScreenAlternateDateLabel* label = [self valueForKey:@"_alternateDateLabel"];
 	[label setHidden:hideLunarCalendarSwitch];
 
 }
@@ -369,32 +369,30 @@
 	%orig;
 
 	if (hideUnlockTextSwitch) {
-		SBUILegibilityLabel* label = MSHookIvar<SBUILegibilityLabel *>(self, "_callToActionLabel");
+		SBUILegibilityLabel* label = [self valueForKey:@"_callToActionLabel"];
 		[label setHidden:YES];
 		return;
 	}
 
 	if (colorUnlockTextSwitch) {
 		UIColor* customColor = [SparkColourPickerUtils colourWithString:[preferencesDictionary objectForKey:@"unlockTextColor"] withFallback: @"#ffffff"];
-		SBUILegibilityLabel* label = MSHookIvar<SBUILegibilityLabel *>(self, "_callToActionLabel");
+		SBUILegibilityLabel* label = [self valueForKey:@"_callToActionLabel"];
 		[label setTextColor:customColor];
 	}
 
 	if (![unlockTextInput isEqual:@""]) {
-		SBUILegibilityLabel* label = MSHookIvar<SBUILegibilityLabel *>(self, "_callToActionLabel");
+		SBUILegibilityLabel* label = [self valueForKey:@"_callToActionLabel"];
 		[label setString:unlockTextInput];
 		return;
 	}
 
 	if (lastTimeUnlockedSwitch && !prefersLastTimeLockedSwitch) {
-		SBUILegibilityLabel* label = MSHookIvar<SBUILegibilityLabel *>(self, "_callToActionLabel");
+		SBUILegibilityLabel* label = [self valueForKey:@"_callToActionLabel"];
 		[label setString:[NSString stringWithFormat:@"Last Time Unlocked: %@", [preferences objectForKey:@"lastTimeUnlockedValue"]]];
 	} else if (lastTimeUnlockedSwitch && prefersLastTimeLockedSwitch) {
-		SBUILegibilityLabel* label = MSHookIvar<SBUILegibilityLabel *>(self, "_callToActionLabel");
+		SBUILegibilityLabel* label = [self valueForKey:@"_callToActionLabel"];
 		[label setString:[NSString stringWithFormat:@"Last Time Locked: %@", [preferences objectForKey:@"lastTimeUnlockedValue"]]];
 	}
-		
-
 
 }
 
@@ -426,7 +424,7 @@
 
 	if (colorUnlockTextSwitch) {
 		UIColor* customColor = [SparkColourPickerUtils colourWithString:[preferencesDictionary objectForKey:@"unlockTextColor"] withFallback: @"#ffffff"];
-		SBUILegibilityLabel* label = MSHookIvar<SBUILegibilityLabel *>(self, "_label");
+		SBUILegibilityLabel* label = [self valueForKey:@"_label"];
 		[label setTextColor:customColor];
 	}
 
@@ -436,10 +434,10 @@
 	}
 
 	if (lastTimeUnlockedSwitch && !prefersLastTimeLockedSwitch) {
-		SBUILegibilityLabel* label = MSHookIvar<SBUILegibilityLabel *>(self, "_label");
+		SBUILegibilityLabel* label = [self valueForKey:@"_label"];
 		[label setString:[NSString stringWithFormat:@"Last Time Unlocked: %@", [preferences objectForKey:@"lastTimeUnlockedValue"]]];
 	} else if (lastTimeUnlockedSwitch && prefersLastTimeLockedSwitch) {
-		SBUILegibilityLabel* label = MSHookIvar<SBUILegibilityLabel *>(self, "_label");
+		SBUILegibilityLabel* label = [self valueForKey:@"_label"];
 		[label setString:[NSString stringWithFormat:@"Last Time Locked: %@", [preferences objectForKey:@"lastTimeUnlockedValue"]]];
 	}
 
@@ -456,7 +454,7 @@
 
 	if (colorUnlockTextSwitch) {
 		UIColor* customColor = [SparkColourPickerUtils colourWithString:[preferencesDictionary objectForKey:@"unlockTextColor"] withFallback: @"#ffffff"];
-		SBUILegibilityLabel* label = MSHookIvar<SBUILegibilityLabel *>(self, "_label");
+		SBUILegibilityLabel* label = [self valueForKey:@"_label"];
 		[label setTextColor:customColor];
 	}
     
@@ -466,10 +464,10 @@
 	}
 
 	if (lastTimeUnlockedSwitch && !prefersLastTimeLockedSwitch) {
-		SBUILegibilityLabel* label = MSHookIvar<SBUILegibilityLabel *>(self, "_label");
+		SBUILegibilityLabel* label = [self valueForKey:@"_label"];
 		[label setString:[NSString stringWithFormat:@"Last Time Unlocked: %@", [preferences objectForKey:@"lastTimeUnlockedValue"]]];
 	} else if (lastTimeUnlockedSwitch && prefersLastTimeLockedSwitch) {
-		SBUILegibilityLabel* label = MSHookIvar<SBUILegibilityLabel *>(self, "_label");
+		SBUILegibilityLabel* label = [self valueForKey:@"_label"];
 		[label setString:[NSString stringWithFormat:@"Last Time Locked: %@", [preferences objectForKey:@"lastTimeUnlockedValue"]]];
 	}
 
@@ -530,7 +528,7 @@
 	[self setHidden:hideMediaPlayerSwitch];
 
 	if (hideLockscreenPlayerBackgroundSwitch) {
-		UIView* platterView = MSHookIvar<UIView *>(self, "_platterView");
+		UIView* platterView = [self valueForKey:@"_platterView"];
 		[[platterView backgroundMaterialView] setHidden:YES];
 	}
 
@@ -593,7 +591,7 @@
 
 	%orig;
 
-	SBUILegibilityLabel* label = MSHookIvar<SBUILegibilityLabel *>(self, "_revealHintTitle");
+	SBUILegibilityLabel* label = [self valueForKey:@"_revealHintTitle"];
 
 	if (hideNoOlderNotificationsSwitch)
 		[label setHidden:YES];
@@ -644,7 +642,7 @@
 
 	%orig;
 
-	UIControl* clearButton = MSHookIvar<UIControl *>(self, "_clearButton");
+	UIControl* clearButton = [self valueForKey:@"_clearButton"];
 
 	if (hideNotificationsClearButtonSwitch)
 		[clearButton setHidden:YES];
@@ -712,8 +710,8 @@
 
 	%orig;
 
-	CSQuickActionsButton* cameraButton = MSHookIvar<CSQuickActionsButton *>(self, "_cameraButton");
-	CSQuickActionsButton* flashlightButton = MSHookIvar<CSQuickActionsButton *>(self, "_flashlightButton");
+	CSQuickActionsButton* cameraButton = [self valueForKey:@"_cameraButton"];
+	CSQuickActionsButton* flashlightButton = [self valueForKey:@"_flashlightButton"];
 
 	if (hideCameraQuickActionsButtonSwitch)
 		[cameraButton setHidden:YES];
@@ -756,7 +754,7 @@
 	%orig;
 
 	if (hideQuickActionsButtonBackgroundSwitch) {
-		UIVisualEffectView* background = MSHookIvar<UIVisualEffectView *>(self, "_backgroundEffectView");
+		UIVisualEffectView* background = [self valueForKey:@"_backgroundEffectView"];
 		[background setHidden:YES];
 	}
 

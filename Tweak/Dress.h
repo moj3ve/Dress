@@ -167,8 +167,14 @@ BOOL hideFaceIDAnimationSwitch = NO;
 @property(nonatomic, assign, readwrite)MTMaterialView* backgroundMaterialView;
 @end
 
+@interface NCNotificationListSectionHeaderView : UIView
+@end
+
 @interface NCNotificationListHeaderTitleView : UIView
 @property(nonatomic, copy, readwrite)NSString* title;
+@end
+
+@interface NCNotificationListSectionRevealHintView : UIView
 @end
 
 @interface SBUILegibilityLabel : UIView
@@ -178,6 +184,9 @@ BOOL hideFaceIDAnimationSwitch = NO;
 @end
 
 @interface UICoverSheetButton : UIControl
+@end
+
+@interface CSQuickActionsView : UIView
 @end
 
 @interface CSQuickActionsButton : UICoverSheetButton
