@@ -4,7 +4,7 @@ export SYSROOT = $(THEOS)/sdks/iPhoneOS14.4.sdk/
 export PREFIX = $(THEOS)/toolchain/Xcode.xctoolchain/usr/bin/
 
 INSTALL_TARGET_PROCESSES = SpringBoard
-SUBPROJECTS += Tweak Tweak/DressEvanesco Prefs
+SUBPROJECTS += Tweak Prefs
 
 include $(THEOS)/makefiles/common.mk
 include $(THEOS_MAKE_PATH)/aggregate.mk
