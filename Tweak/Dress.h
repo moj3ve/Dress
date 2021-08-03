@@ -110,8 +110,10 @@ BOOL disableTodaySwipeSwitch = NO;
 BOOL disableCameraSwipeSwitch = NO;
 BOOL customQuickActionsXAxisSwitch = NO;
 BOOL customQuickActionsYAxisSwitch = NO;
+BOOL customQuickActionsButtonSizeSwitch = NO;
 NSString* customQuickActionsXAxisValueControl = @"50.0";
 NSString* customQuickActionsYAxisValueControl = @"50.0";
+NSString* customQuickActionsButtonSizeControl = @"1.0";
 BOOL colorQuickActionsSwitch = NO;
 
 //others

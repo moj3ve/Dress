@@ -224,13 +224,15 @@
 - (void)setFrame:(CGRect)arg1 { // add notification observer
 
 	if (hideStatusBarSwitch) {
-		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveStatusBarCustomizationNotification:) name:@"hideStatusBar" object:nil];
-		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveStatusBarCustomizationNotification:) name:@"showStatusBar" object:nil];
+		NSNotificationCenter* notificationCenter = [NSNotificationCenter defaultCenter];
+		[notificationCenter addObserver:self selector:@selector(receiveStatusBarCustomizationNotification:) name:@"hideStatusBar" object:nil];
+		[notificationCenter addObserver:self selector:@selector(receiveStatusBarCustomizationNotification:) name:@"showStatusBar" object:nil];
 	}
 
 	if ([statusBarAlphaControl doubleValue] != 1.0) {
-		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveStatusBarCustomizationNotification:) name:@"changeAlphaStatusBar" object:nil];
-		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveStatusBarCustomizationNotification:) name:@"revertAlphaStatusBar" object:nil];
+		NSNotificationCenter* notificationCenter = [NSNotificationCenter defaultCenter];
+		[notificationCenter addObserver:self selector:@selector(receiveStatusBarCustomizationNotification:) name:@"changeAlphaStatusBar" object:nil];
+		[notificationCenter addObserver:self selector:@selector(receiveStatusBarCustomizationNotification:) name:@"revertAlphaStatusBar" object:nil];
 	}
 
 	return %orig;
@@ -687,17 +689,13 @@
 	CSQuickActionsButton* cameraButton = [self valueForKey:@"_cameraButton"];
 	CSQuickActionsButton* flashlightButton = [self valueForKey:@"_flashlightButton"];
 
-	if (hideCameraQuickActionsButtonSwitch)
-		[cameraButton setHidden:YES];
+	if (hideCameraQuickActionsButtonSwitch) [cameraButton setHidden:YES];
+	if ([cameraQuickActionsButtonAlphaControl doubleValue] != 1.0) [cameraButton setAlpha:[cameraQuickActionsButtonAlphaControl doubleValue]];
+	if (customQuickActionsButtonSizeSwitch) [cameraButton setTransform:CGAffineTransformMakeScale([customQuickActionsButtonSizeControl doubleValue], [customQuickActionsButtonSizeControl doubleValue])];
 
-	if ([cameraQuickActionsButtonAlphaControl doubleValue] != 1.0)
-		[cameraButton setAlpha:[cameraQuickActionsButtonAlphaControl doubleValue]];
-
-	if (hideFlashlightQuickActionsButtonSwitch)	
-		[flashlightButton setHidden:YES];
-
-	if ([flashlightQuickActionsButtonAlphaControl doubleValue] != 1.0)
-		[flashlightButton setAlpha:[flashlightQuickActionsButtonAlphaControl doubleValue]];
+	if (hideFlashlightQuickActionsButtonSwitch)	[flashlightButton setHidden:YES];
+	if ([flashlightQuickActionsButtonAlphaControl doubleValue] != 1.0) [flashlightButton setAlpha:[flashlightQuickActionsButtonAlphaControl doubleValue]];
+	if (customQuickActionsButtonSizeSwitch) [flashlightButton setTransform:CGAffineTransformMakeScale([customQuickActionsButtonSizeControl doubleValue], [customQuickActionsButtonSizeControl doubleValue])];
 
 }
 
@@ -940,8 +938,10 @@
 		[preferences registerBool:&hideCameraQuickActionsButtonSwitch default:NO forKey:@"hideCameraQuickActionsButton"];
 		[preferences registerBool:&customQuickActionsXAxisSwitch default:NO forKey:@"customQuickActionsXAxis"];
 		[preferences registerBool:&customQuickActionsYAxisSwitch default:NO forKey:@"customQuickActionsYAxis"];
+		[preferences registerBool:&customQuickActionsButtonSizeSwitch default:NO forKey:@"customQuickActionsButtonSize"];
 		[preferences registerObject:&customQuickActionsXAxisValueControl default:@"50.0" forKey:@"customQuickActionsXAxisValue"];
 		[preferences registerObject:&customQuickActionsYAxisValueControl default:@"50.0" forKey:@"customQuickActionsYAxisValue"];
+		[preferences registerObject:&customQuickActionsButtonSizeControl default:@"1.0" forKey:@"customQuickActionsButtonSizeValue"];
 		[preferences registerBool:&colorQuickActionsSwitch default:NO forKey:@"colorQuickActions"];
 	}
 
