@@ -90,20 +90,17 @@
 			<key>cell</key>
 			<string>PSLinkCell</string>
 			<key>cellClass</key>
-			<string>SparkColourPickerCell</string>
-			<key>libsparkcolourpicker</key>
-			<dict>
-				<key>defaults</key>
-				<string>love.litten.dress.colorspreferences</string>
-				<key>fallback</key>
-				<string>#ffffff</string>
-				<key>alpha</key>
-				<true/>
-			</dict>
+			<string>GcColorPickerCell</string>
 			<key>label</key>
-			<string>Color:</string>
+			<string>Custom color:</string>
+			<key>defaults</key>
+			<string>love.litten.dresspreferences</string>
 			<key>key</key>
 			<string>homebarColor</string>
+			<key>supportsAlpha</key>
+			<true/>
+			<key>fallback</key>
+			<string>FFFFFF</string>
 		</dict>
 
 	</array>

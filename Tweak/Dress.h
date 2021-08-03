@@ -1,11 +1,10 @@
 #import <UIKit/UIKit.h>
-#import "SparkColourPickerUtils.h"
+#import "GcUniversal/GcColorPickerUtils.h"
 #import <Cephei/HBPreferences.h>
 
 HBPreferences* preferences = nil;
-NSDictionary* preferencesDictionary = nil;
-
 BOOL enabled = NO;
+
 BOOL enableTimeDateSection = NO;
 BOOL enableFaceIDLockSection = NO;
 BOOL enableStatusBarSection = NO;
@@ -44,6 +43,8 @@ BOOL useItalicFontDateSwitch = NO;
 BOOL customFontLunarSwitch = NO;
 BOOL useCompactDateFormatSwitch = NO;
 BOOL colorTimeAndDateSwitch = NO;
+NSString* timeColorValue = @"FFFFFF";
+NSString* dateColorValue = @"FFFFFF";
 
 // faceID lock
 BOOL hideFaceIDLockSwitch = NO;
@@ -52,8 +53,9 @@ NSString* faceIDLockAlphaValue = @"1.0";
 BOOL customFaceIDAxisSwitch = NO;
 NSString* faceIDXAxisControl = @"176.0";
 NSString* faceIDYAxisControl = @"0.0";
-NSString* customFaceIDSizeControl = @"0.0";
+NSString* customFaceIDSizeControl = @"1.0";
 BOOL colorFaceIDLockSwitch = NO;
+NSString* faceIDLockColorValue = @"FFFFFF";
 
 // status bar
 BOOL hideStatusBarSwitch = NO;
@@ -63,6 +65,7 @@ NSString* statusBarAlphaControl = @"1.0";
 BOOL hideHomebarSwitch = NO;
 NSString* homebarAlphaControl = @"1.0";
 BOOL colorHomebarSwitch = NO;
+NSString* homebarColorValue = @"FFFFFF";
 
 // page dots
 BOOL hidePageDotsSwitch = NO;
@@ -80,6 +83,7 @@ BOOL lastTimeUnlockedSwitch = NO;
 BOOL prefersLastTimeLockedSwitch = NO;
 NSString* lastTimeUnlockedFormatValue = @"HH:mm";
 BOOL colorUnlockTextSwitch = NO;
+NSString* unlockTextColorValue = @"FFFFFF";
 
 // media player
 BOOL hideMediaPlayerSwitch = NO;
@@ -115,6 +119,7 @@ NSString* customQuickActionsXAxisValueControl = @"50.0";
 NSString* customQuickActionsYAxisValueControl = @"50.0";
 NSString* customQuickActionsButtonSizeControl = @"1.0";
 BOOL colorQuickActionsSwitch = NO;
+NSString* quickActionsColorValue = @"FFFFFF";
 
 //others
 NSString* customLockDurationControl = @"0";

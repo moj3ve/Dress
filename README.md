@@ -6,7 +6,7 @@ Dress up your lock screen
 2. Install Dress
 
 ## Compiling
-  - Depends on sparkcolourpicker
+  - Depends on libGCUniversal
   - You may want to edit the `Makefiles` to suit your theos installation
 
 ## License

@@ -35,12 +35,10 @@
 	%orig;
 
 	if (colorTimeAndDateSwitch) {
-		UIColor* customTimeColor = [SparkColourPickerUtils colourWithString:[preferencesDictionary objectForKey:@"timeColor"] withFallback: @"#ffffff"];
-		UIColor* customDateColor = [SparkColourPickerUtils colourWithString:[preferencesDictionary objectForKey:@"dateColor"] withFallback: @"#ffffff"];
 		UIView* subtitleView = [self valueForKey:@"_dateSubtitleView"];
 		SBUILegibilityLabel* label = [subtitleView valueForKey:@"_label"];
-		[self setTextColor:customTimeColor];
-		[label setTextColor:customDateColor];
+		[self setTextColor:[GcColorPickerUtils colorWithHex:timeColorValue]];
+		[label setTextColor:[GcColorPickerUtils colorWithHex:dateColorValue]];
 	}
 
 }
@@ -175,7 +173,7 @@
 - (void)setContentColor:(UIColor *)arg1 { // change faceid lock color
 
 	if (colorFaceIDLockSwitch)
-		%orig([SparkColourPickerUtils colourWithString:[preferencesDictionary objectForKey:@"faceIDLockColor"] withFallback: @"#ffffff"]);
+		%orig([GcColorPickerUtils colorWithHex:faceIDLockColorValue]);
 	else
 		%orig;
 
@@ -183,12 +181,16 @@
 
 - (void)setFrame:(CGRect)frame { // change faceid lock position
 
-	frame.origin.x += [faceIDXAxisControl doubleValue];
-	frame.origin.y += [faceIDYAxisControl doubleValue];
-	frame.size.width += [customFaceIDSizeControl doubleValue];
-	frame.size.height += [customFaceIDSizeControl doubleValue];
+	if (customFaceIDAxisSwitch) {
+		frame.origin.x += [faceIDXAxisControl doubleValue];
+		frame.origin.y += [faceIDYAxisControl doubleValue];
+		[self setTransform:CGAffineTransformMakeScale([customFaceIDSizeControl doubleValue], [customFaceIDSizeControl doubleValue])];
 
-	%orig(frame);
+		%orig(frame);
+		return;
+	}
+
+	%orig;
 
 }
 
@@ -314,7 +316,7 @@
 - (void)setPillColor:(UIColor *)arg1 { // change homebar color
 
 	if (colorHomebarSwitch) {
-		UIColor* customColor = [SparkColourPickerUtils colourWithString:[preferencesDictionary objectForKey:@"homebarColor"] withFallback: @"#ffffff"];
+		UIColor* customColor = [GcColorPickerUtils colorWithHex:homebarColorValue];
 		%orig(customColor);
 	} else {
 		%orig;
@@ -366,9 +368,8 @@
 	}
 
 	if (colorUnlockTextSwitch) {
-		UIColor* customColor = [SparkColourPickerUtils colourWithString:[preferencesDictionary objectForKey:@"unlockTextColor"] withFallback: @"#ffffff"];
 		SBUILegibilityLabel* label = [self valueForKey:@"_callToActionLabel"];
-		[label setTextColor:customColor];
+		[label setTextColor:[GcColorPickerUtils colorWithHex:unlockTextColorValue]];
 	}
 
 	if (![unlockTextInput isEqual:@""]) {
@@ -414,9 +415,8 @@
 	}
 
 	if (colorUnlockTextSwitch) {
-		UIColor* customColor = [SparkColourPickerUtils colourWithString:[preferencesDictionary objectForKey:@"unlockTextColor"] withFallback: @"#ffffff"];
 		SBUILegibilityLabel* label = [self valueForKey:@"_label"];
-		[label setTextColor:customColor];
+		[label setTextColor:[GcColorPickerUtils colorWithHex:unlockTextColorValue]];
 	}
 
 	if (![unlockTextInput isEqual:@""]) {
@@ -444,9 +444,8 @@
 	}
 
 	if (colorUnlockTextSwitch) {
-		UIColor* customColor = [SparkColourPickerUtils colourWithString:[preferencesDictionary objectForKey:@"unlockTextColor"] withFallback: @"#ffffff"];
 		SBUILegibilityLabel* label = [self valueForKey:@"_label"];
-		[label setTextColor:customColor];
+		[label setTextColor:[GcColorPickerUtils colorWithHex:unlockTextColorValue]];
 	}
     
 	if (![unlockTextInput isEqual:@""]) {
@@ -738,7 +737,7 @@
 	if (!colorQuickActionsSwitch)
 		%orig;
 	else if (colorQuickActionsSwitch)
-		%orig([SparkColourPickerUtils colourWithString:[preferencesDictionary objectForKey:@"quickActionsColor"] withFallback: @"#ffffff"]);
+		%orig([GcColorPickerUtils colorWithHex:quickActionsColorValue]);
 
 }
 
@@ -862,6 +861,8 @@
 		[preferences registerBool:&customFontLunarSwitch default:YES forKey:@"customFontLunar"];
 		[preferences registerBool:&useCompactDateFormatSwitch default:NO forKey:@"useCompactDateFormat"];
 		[preferences registerBool:&colorTimeAndDateSwitch default:NO forKey:@"colorTimeAndDate"];
+		[preferences registerObject:&timeColorValue default:@"FFFFFF" forKey:@"timeColor"];
+		[preferences registerObject:&dateColorValue default:@"FFFFFF" forKey:@"dateColor"];
 	}
 
 	// faceID lock
@@ -872,8 +873,9 @@
 		[preferences registerBool:&customFaceIDAxisSwitch default:NO forKey:@"customFaceIDAxis"];
 		[preferences registerObject:&faceIDXAxisControl default:@"176.0" forKey:@"faceIDXAxis"];
 		[preferences registerObject:&faceIDYAxisControl default:@"0.0" forKey:@"faceIDYAxis"];
-		[preferences registerObject:&customFaceIDSizeControl default:@"0.0" forKey:@"customFaceIDSize"];
+		[preferences registerObject:&customFaceIDSizeControl default:@"1.0" forKey:@"customFaceIDSize"];
 		[preferences registerBool:&colorFaceIDLockSwitch default:NO forKey:@"colorFaceIDLock"];
+		[preferences registerObject:&faceIDLockColorValue default:@"FFFFFF" forKey:@"faceIDLockColor"];
 	}
 
 	// status bar
@@ -887,6 +889,7 @@
 		[preferences registerBool:&hideHomebarSwitch default:NO forKey:@"hideHomebar"];
 		[preferences registerObject:&homebarAlphaControl default:@"1.0" forKey:@"homebarAlpha"];
 		[preferences registerBool:&colorHomebarSwitch default:NO forKey:@"colorHomebar"];
+		[preferences registerObject:&homebarColorValue default:@"FFFFFF" forKey:@"homebarColor"];
 	}
 
 	// page dots
@@ -905,6 +908,7 @@
 		[preferences registerBool:&prefersLastTimeLockedSwitch default:NO forKey:@"prefersLastTimeLocked"];
 		[preferences registerObject:&lastTimeUnlockedFormatValue default:@"HH:mm" forKey:@"lastTimeUnlockedFormat"];
 		[preferences registerBool:&colorUnlockTextSwitch default:NO forKey:@"colorUnlockText"];
+		[preferences registerObject:&unlockTextColorValue default:@"FFFFFF" forKey:@"unlockTextColor"];
 	}
 
 	// media player
@@ -947,6 +951,7 @@
 		[preferences registerObject:&customQuickActionsYAxisValueControl default:@"50.0" forKey:@"customQuickActionsYAxisValue"];
 		[preferences registerObject:&customQuickActionsButtonSizeControl default:@"1.0" forKey:@"customQuickActionsButtonSizeValue"];
 		[preferences registerBool:&colorQuickActionsSwitch default:NO forKey:@"colorQuickActions"];
+		[preferences registerObject:&quickActionsColorValue default:@"FFFFFF" forKey:@"quickActionsColor"];
 	}
 
 	// others

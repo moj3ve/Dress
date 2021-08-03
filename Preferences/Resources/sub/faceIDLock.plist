@@ -156,15 +156,15 @@
 			<key>cell</key>
 			<string>PSSliderCell</string>
 			<key>default</key>
-			<real>0.0</real>
+			<real>1.0</real>
 			<key>defaults</key>
 			<string>love.litten.dresspreferences</string>
 			<key>key</key>
 			<string>customFaceIDSize</string>
 			<key>min</key>
-			<real>-10.0</real>
+			<real>0.5</real>
 			<key>max</key>
-			<real>60.0</real>
+			<real>2.0</real>
 			<key>showValue</key>
 			<true/>
 			<key>isSegmented</key>
@@ -193,20 +193,17 @@
 			<key>cell</key>
 			<string>PSLinkCell</string>
 			<key>cellClass</key>
-			<string>SparkColourPickerCell</string>
-			<key>libsparkcolourpicker</key>
-			<dict>
-				<key>defaults</key>
-				<string>love.litten.dress.colorspreferences</string>
-				<key>fallback</key>
-				<string>#ffffff</string>
-				<key>alpha</key>
-				<true/>
-			</dict>
+			<string>GcColorPickerCell</string>
 			<key>label</key>
-			<string>Color:</string>
+			<string>Custom color:</string>
+			<key>defaults</key>
+			<string>love.litten.dresspreferences</string>
 			<key>key</key>
 			<string>faceIDLockColor</string>
+			<key>supportsAlpha</key>
+			<true/>
+			<key>fallback</key>
+			<string>FFFFFF</string>
 		</dict>
 
 	</array>
