@@ -1,12 +1,10 @@
 #import "Dress.h"
 
-// Time And Date
-
 %group Dress
 
-%hook SBUILegibilityLabel // needed to change SBUILegibilityLabel colors
+%hook SBUILegibilityLabel
 
-- (BOOL)_needsColorImage {
+- (BOOL)_needsColorImage { // needed to change SBUILegibilityLabel colors
 
 	return YES;
 
@@ -162,8 +160,6 @@
 
 %end
 
-// FaceID Lock
-
 %group DressFaceIDLock
 
 %hook SBUIProudLockIconView
@@ -221,8 +217,6 @@
 
 %end
 
-// Status Bar
-
 %group DressStatusBar
 
 %hook UIStatusBar_Modern
@@ -259,7 +253,7 @@
 
 %end
 
-%hook CSCoverSheetViewController // send notifications to hide or show the status bar
+%hook CSCoverSheetViewController
 
 - (void)viewWillDisappear:(BOOL)animated { // show status bar when lockscreen disappears
 
@@ -288,8 +282,6 @@
 %end
 
 %end
-
-// Homebar
 
 %group DressHomebar
 
@@ -331,8 +323,6 @@
 
 %end
 
-// Page Dots
-
 %group DressPageDots
 
 %hook CSPageControl
@@ -357,8 +347,6 @@
 %end
 
 %end
-
-// Unlock Text
 
 %group DressUnlockText
 
@@ -515,8 +503,6 @@
 
 %end
 
-// Media Player
-
 %group DressMediaPlayer
 
 %hook CSAdjunctItemView
@@ -547,8 +533,6 @@
 %end
 
 %end
-
-// Notifications
 
 %group DressNotifications
 
@@ -583,8 +567,6 @@
 
 %end
 
-// No Older Notifications Text
-
 %hook NCNotificationListSectionRevealHintView
 
 - (void)didMoveToWindow { // hide, set alpha and set alignment of the no older notifications text
@@ -617,8 +599,6 @@
 
 %end
 
-// Notification Center Text
-
 %hook NCNotificationListHeaderTitleView
 
 - (void)didMoveToWindow { // hide and change notification header text
@@ -633,8 +613,6 @@
 }
 
 %end
-
-// Clear Notifications Button And Alpha For Header View
 
 %hook NCNotificationListSectionHeaderView
 
@@ -661,8 +639,6 @@
 }
 
 %end
-
-// DND Banner
 
 %hook DNDNotificationsService
 
@@ -699,8 +675,6 @@
 %end
 
 %end
-
-// Quick Actions
 
 %group DressQuickActions
 
@@ -771,7 +745,7 @@
 
 %end
 
-%hook SBMainDisplayPolicyAggregator // Disable Today View/Camera Swipe
+%hook SBMainDisplayPolicyAggregator
 
 - (BOOL)_allowsCapabilityTodayViewWithExplanation:(id *)arg1 { // disable today view swipe
 
@@ -797,8 +771,6 @@
 
 %group DressOthers
 
-// Custom Auto Lock Duration
-
 %hook CSBehavior
 
 - (void)setIdleTimerDuration:(long long)arg1 { // change auto lock timer duration
@@ -820,8 +792,6 @@
 
 %end
 
-// Hide Charging View
-
 %hook CSCoverSheetViewController
 
 - (void)_transitionChargingViewToVisible:(BOOL)arg1 showBattery:(BOOL)arg2 animated:(BOOL)arg3 { // hide charging view
@@ -834,8 +804,6 @@
 }
 
 %end
-
-// Hide FaceID Animation
 
 %hook SBUIPasscodeBiometricResource
 
@@ -852,10 +820,10 @@
 %ctor {
 
 	preferences = [[HBPreferences alloc] initWithIdentifier:@"love.litten.dresspreferences"];
-	preferencesDictionary = [NSDictionary dictionaryWithContentsOfFile: @"/var/mobile/Library/Preferences/love.litten.dress.colorspreferences.plist"];
 
     [preferences registerBool:&enabled default:NO forKey:@"Enabled"];
 	if (!enabled) return;
+
 	[preferences registerBool:&enableTimeDateSection default:NO forKey:@"EnableTimeDateSection"];
 	[preferences registerBool:&enableFaceIDLockSection default:NO forKey:@"EnableFaceIDLockSection"];
 	[preferences registerBool:&enableStatusBarSection default:NO forKey:@"EnableStatusBarSection"];
