@@ -62,7 +62,7 @@
 - (void)showTimeFontPicker {
     
     self.timeFontPicker = [UIFontPickerViewController new];
-    self.timeFontPicker.delegate = self;
+    [[self timeFontPicker] setDelegate:self];
     [self presentViewController:[self timeFontPicker] animated:YES completion:nil];
     
 }
@@ -70,7 +70,7 @@
 - (void)showDateFontPicker {
     
     self.dateFontPicker = [UIFontPickerViewController new];
-    self.dateFontPicker.delegate = self;
+    [[self dateFontPicker] setDelegate:self];
     [self presentViewController:[self dateFontPicker] animated:YES completion:nil];
     
 }
