@@ -168,7 +168,7 @@
 
 	%orig;
 
-	[self setHidden:hideFaceIDLockSwitch];
+	if (hideFaceIDLockSwitch) [self setHidden:YES];
 
 }
 
@@ -183,10 +183,12 @@
 
 - (void)setFrame:(CGRect)frame { // change faceid lock position
 
-	if (customFaceIDAxisSwitch)
-		%orig(CGRectMake([faceIDXAxisControl doubleValue], [faceIDYAxisControl doubleValue], 23 + [customFaceIDSizeControl doubleValue], 33 + [customFaceIDSizeControl doubleValue]));
-	else
-		%orig;
+	frame.origin.x += [faceIDXAxisControl doubleValue];
+	frame.origin.y += [faceIDYAxisControl doubleValue];
+	frame.size.width += [customFaceIDSizeControl doubleValue];
+	frame.size.height += [customFaceIDSizeControl doubleValue];
+
+	%orig(frame);
 
 }
 
@@ -208,8 +210,7 @@
 	%orig;
 
 	UIViewController* ancestor = [self _viewControllerForAncestor];
-	if (hideFaceIDLockLabelSwitch && [ancestor isKindOfClass:%c(SBUIProudLockContainerViewController)])
-		[self setHidden:YES];
+	if (hideFaceIDLockLabelSwitch && [ancestor isKindOfClass:%c(SBUIProudLockContainerViewController)]) [self setHidden:YES];
 
 }
 
@@ -807,7 +808,10 @@
 
 - (BOOL)hasBiometricAuthenticationCapabilityEnabled { // hide faceid animation when swiping up
 
-	return !hideFaceIDAnimationSwitch;
+	if (hideFaceIDAnimationSwitch)
+		return NO;
+	else
+		return %orig;
 
 }
 
